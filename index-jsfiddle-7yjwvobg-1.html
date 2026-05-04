@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pengumuman Kelulusan | SMA GLOBAL ISLAMIC SCHOOL AL-AMIN</title>
+
+  <style>
+    :root {
+            --navy: #0a192f;
+            --gold: #d4af37;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --success-bg: #d4edda;
+            --success-text: #155724;
+            --danger-bg: #f8d7da;
+            --danger-text: #721c24;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #d4af37;
+            color: black;
+            padding: 15px 30px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .title-text {
+            display: flex;
+            flex-direction: column;
+            margin-left: 15px;
+        }
+
+        .main-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .sub-title {
+            font-size: 0.8rem;
+        }
+
+        .dropdown-tahun {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+            font-family: 'Poppins' , sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .info-section label {
+            margin-right: 10px;
+            font-weight: 500;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--navy);
+            line-height: 1.6;
+        }
+
+        /* SPA Navigation Logic */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utility Components */
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            border-top: 5px solid var(--gold);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-gold { background: var(--gold); color: var(--navy); }
+        .btn-gold:hover:not(:disabled) { background: #b8962d; transform: translateY(-2px); }
+        .btn-outline { border: 2px solid var(--gold); color: var(--navy); background: transparent; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; opacity: 0.7; }
+
+        /* Branding */
+        .header-brand { text-align: center; margin-bottom: 40px; }
+        .logo { max-width: 120px; margin-bottom: 15px; }
+        h1 { font-size: 1.8rem; margin-bottom: 5px; color: var(--navy); }
+        .year-tag { color: var(--gold); font-weight: 700; letter-spacing: 1px; }
+
+        /* Countdown */
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .timer-box {
+            background: var(--navy);
+            color: var(--gold);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+            text-align: center;
+        }
+        .timer-box span { display: block; font-size: 1.6rem; font-weight: 700; color: var(--white); }
+        .timer-box label { font-size: 10px; text-transform: uppercase; }
+
+        /* Layout Grid Dua Kolom untuk Informasi */
+        .dua-kolom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .list-info { list-style: none; margin-top: 15px; }
+        .list-info li { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .list-info li:last-child { border-bottom: none; }
+        .list-info strong { display: block; color: var(--navy); margin-bottom: 2px; }
+
+        /* POP-UP MODAL STYLES */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-top: 6px solid var(--gold);
+            /* Pop-up Animation */
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover { color: var(--danger-text); }
+
+        .status-box { padding: 15px; border-radius: 8px; font-weight: 700; font-size: 1.2rem; margin: 20px 0; }
+        .lulus { background: var(--success-bg); color: var(--success-text); border: 1px solid #c3e6cb; }
+        .tidak-lulus { background: var(--danger-bg); color: var(--danger-text); border: 1px solid #f5c6cb; }
+        .not-found { background: var(--warning-bg); color: var(--warning-text); border: 1px solid #ffeeba; }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px; font-size: 13px; color: #888; }
+
+        /* Print Settings */
+        @media print {
+            body { background: white; padding: 0; }
+            /* Sembunyikan elemen web lainnya */
+            .page, header, footer, .timer-grid, .no-print, #home, #sambutan, #cek { display: none !important; }
+            
+            /* Tampilkan Modal tanpa gaya overlay */
+            .modal-overlay { 
+                display: block !important; 
+                position: static; 
+                background: none; 
+                padding: 0; 
+                backdrop-filter: none;
+            }
+            .modal-content { 
+                box-shadow: none; 
+                border: 1px solid #000; 
+                max-width: 100%; 
+                padding: 30px; 
+                animation: none;
+                margin: 0;
+            }
+            .status-box { border: 2px solid black; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .dua-kolom { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.3rem; }
+            .timer-box { min-width: 65px; padding: 10px; }
+            .timer-box span { font-size: 1.2rem; }
+            .modal-content { padding: 25px 20px; }
+        }
+  </style>
+
+  
+</head>
+<body>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+
+
+
+<header class="navbar">
+    <div class="logo-section">
+        <img src="Logo-Gis.png" alt="Logo-Gis" class="logo">
+        <div class="title-text">
+            <span class="main-title">SMA GIS AL-AMIN</span>
+            <span class="sub-title"> portal resmi kelulusan 2026</span>
+        </div>
+    </div>
+    <div class="info-section">
+        <label for="tahun-ajaran">Tahun Ajaran:</label>
+        <select id="tahun-ajaran" class="dropdown-tahun">
+            <option value="2025">2025/2026</option>
+            <option value="2026">2026/2027</option>
+            <option value="2027">2027/2028</option>
+        </select>
+    </div>
+</header>
+
+    <section id="home" class="page active">
+        <div class="container">
+            <div class="header-brand">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <h1>PENGUMUMAN KELULUSAN</h1>
+                <p class="year-tag">SMA GLOBAL ISLAMIC SCHOOL AL-AMIN</p>
+
+                <hr style="margin: 20px 0; border: 0.5px solid #d4af37; opacity: 0.3;">
+
+                <p><small>waktu hitung mundur menuju dibukanya portal pengumuman kelulusan peserta didik tahun ajaran 2025/2026.</small></p><br>
+                <div id="timer" class="timer-grid">
+                    <div class="timer-box"><span id="days">00</span><label>Hari</label></div>
+                    <div class="timer-box"><span id="hours">00</span><label>Jam</label></div>
+                    <div class="timer-box"><span id="minutes">00</span><label>Menit</label></div>
+                    <div class="timer-box"><span id="seconds">00</span><label>Detik</label></div>
+                </div>
+                <button id="btn-enter" class="btn btn-gold" disabled onclick="nav('sambutan')">PENGUMUMAN BELUM DIBUKA</button>
+            </div>
+
+            <div class="dua-kolom">
+                <div class="card" style="margin-bottom: 0;">
+                    <h3 style="border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-size: 1.1rem;">Informasi Sekolah</h3>
+                    <ul class="list-info">
+                        <li><strong>Nama Lembaga:</strong> SMA GLOBAL ISLAMIC SCHOOL AL-AMIN</li>
+                        <li><strong>NPSN:</strong> 20560083</li>
+                        <li><strong>Akreditasi:</strong> C</li>
+                        <li><strong>Kepala Sekolah:</strong> Syahrul Karim, SE., MM.</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="margin-bottom: 0;">
+                    <h3 style="border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-size: 1.1rem;">Informasi Penting</h3>
+                    <ul class="list-info">
+                        <li><strong>Tanggal Rilis:</strong> 04 Mei 2026, 10:00 WIB</li>
+                        <li><strong>Syarat Lulus:</strong> Menyelesaikan seluruh program pembelajaran & ujian sekolah.</li>
+                        <li><strong>Cetak SKL:</strong> Dapat dicetak mandiri di sistem jika dinyatakan LULUS.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sambutan" class="page">
+        <div class="container">
+            <div class="card">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img src="https://drive.google.com/thumbnail?id=1ghAW8_qt5voKpa-y_zgFDSp03KUhY6HJ" alt="Logo Sekolah" class="logo">
+                    <h2>Sambutan Kepala Sekolah</h2>
+                </div>
+                <div style="text-align: justify; color: #444;">
+                    <p><strong>Assalamu'alaikum Warahmatullahi Wabarakatuh,</strong></p><br>
+                    <p>Segala puji bagi Allah SWT yang telah memberikan kekuatan dan kesabaran kepada ananda sekalian hingga berhasil menyelesaikan tahapan pendidikan di SMA GLOBAL ISLAMIC SCHOOL AL-AMIN.</p><br>
+                    <p>Hari ini adalah gerbang awal menuju masa depan yang lebih menantang. Teruslah belajar, berinovasi, dan tetaplah menjaga nilai-nilai Islami di mana pun ananda berada. Kelulusan ini bukanlah akhir, melainkan awal perjuangan yang sesungguhnya.</p>
+                </div>
+                
+                <div style="text-align: right; margin-top: 40px; padding-right: 20px;">
+                    <p>Gondanglegi, 04 Mei 2026</p>
+                    <img src="https://drive.google.com/thumbnail?id=1tJAXAU-gFiMNgWGwJTXA-bV8sX_TMs_o" alt="Tanda Tangan" style="max-width: 150px; margin: 10px 0;">
+                    <p><strong>Syahrul Karim, SE., MM.</strong></p>
+                    <p>NIP. -</p>
+                </div>
+
+                <div style="margin-top: 40px; display: flex; gap: 10px;" class="no-print">
+                    <button class="btn btn-outline" onclick="nav('home')">Kembali</button>
+                    <button class="btn btn-gold" onclick="nav('cek')">Lanjut Cek Kelulusan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cek" class="page">
+        <div class="container">
+            <div class="card" style="text-align: center; min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
+                <h2>Pengecekan Kelulusan</h2>
+                <p style="margin-bottom: 25px; color: #666;">Silakan masukkan Nomor Induk Siswa Nasional (NISN) Anda.</p>
+                
+                <div class="no-print">
+                    <input type="text" id="input-nisn" placeholder="Contoh: 0012345001" style="width: 100%; max-width: 350px; padding: 15px; border-radius: 8px; border: 2px solid #ddd; font-size: 1.1rem; text-align: center; margin-bottom: 20px; outline: none;">
+                    <br>
+                    <button class="btn btn-gold" onclick="cekData()">CEK KELULUSAN</button>
+                    <button class="btn btn-outline" onclick="nav('sambutan')" style="margin-left: 10px;">Batal</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="result-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn no-print" onclick="closeModal()">&times;</span>
+            
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px; font-style: italic;">
+                Berdasarkan hasil rapat pleno kelulusan, peserta didik dengan data berikut:
+            </p>
+            
+            <h3 id="res-nama" style="font-size: 1.6rem; color: var(--navy); margin-bottom: 5px;">NAMA SISWA</h3>
+            <p id="res-detail" style="color: #555; font-size: 15px;">NISN: 000000 | Jurusan: -</p>
+            
+            <div id="res-status" class="status-box">STATUS</div>
+            
+            <p id="res-note" style="margin-bottom: 25px; font-size: 14.5px;"></p>
+            
+            <div id="res-actions" class="no-print">
+                </div>
+        </div>
+    </div>
+
+    <footer style="border : 1px solid #d4af37; padding: 15px; border-radius: 8px; text-align: center; margin-top 20px">
+          &copy; <span id="currentYear"></span> SMA GIS AL-AMIN. All Rights Reserved<br>
+        Sistem Informasi Kelulusan Siswa
+    </footer>
+
+  <script>
+    // --- 1. DATABASE CSV (Silakan edit data di bawah) ---
+        const dataCSV = `Nama,NISN,Jurusan,Status
+Ahmad Zulvy Zamzami,87857198,IPS,LULUS
+Bunga Lailatul Zahro,81387206,IPS,LULUS
+Fadilatul Aulya Silvi Ahika,55205640,IPS,LULUS
+Hidayatul Jannah,88562241,IPS,LULUS
+Ianatul Mafruha,85699328,IPS,LULUS
+M. Ismail Allam Amar Al Faruq,94282031,IPS,LULUS
+Nafisah,85079795,IPS,LULUS
+Nasril Ilham,83331256,IPS,LULUS
+Nazilatur Rohma,85065249,IPS,LULUS
+Nurhayati,79959491,IPS,LULUS
+Reiza Raditya Suryadi,85414594,IPS,LULUS
+Satrio Akbar Rizkie,75403287,IPS,LULUS
+Septi Nela Ayu Puspita,72368423,IPS,LULUS
+Vikri Fauzan Hafidzien,79007358,IPS,LULUS
+Witriatus Sholiha,82345190,IPS,LULUS
+Alya Shona Septya Rahma R,3081187428,IPS,LULUS
+Muhammad Muhdhor,62841446,IPS,LULUS
+Adam Agustian Merdeka,81767371,IPS,LULUS
+Anisa Nur Fadilla,85404749,IPS,LULUS
+Arjuna Habibillah Al-Fath,78967557,IPS,LULUS
+Astiza Thalita Salwa,77500986,IPS,LULUS
+Atallah Stigfarichsan,88635435,IPS,LULUS
+Fikri Al Fathoni Hernanda,82575211,IPS,LULUS
+Fiorentina Angela Panreli,82351769,IPS,LULUS
+Gladis Aulia Nur Aprelia,86295885,IPS,LULUS
+Lala Faindra Dahayu Ramaniya,72027032,IPS,LULUS
+Larasati Prihadiono Putri,73611985,IPS,LULUS
+Miftahul  Afif Al Hayrie,86605846,IPS,LULUS
+Muhamad Fadlan Akbar,86059278,IPS,LULUS
+Muhammad Abdillah Ridwan Gani,72091475,IPS,LULUS
+Muhammad Rizki Zainal Ma'arif,86294039,IPS,LULUS
+Naila Jihan,83199138,IPS,LULUS
+Naila Rahma Azizah,88322079,IPS,LULUS
+Naura Kalyca Nareswari,75600934,IPS,LULUS
+Nur Alfi Jannatin Nisa,72756207,IPS,LULUS
+Okta Romadhona Azzahra,72759985,IPS,LULUS
+Rizky Aulia Rahman,81589317,IPS,LULUS
+Rodhi Jihadi Amrillah,76326375,IPS,LULUS
+Unzila Essensa Qur'ani,85379183,IPS,LULUS
+Yayang Aura Diva Putri Yasmin,72898205,IPS,LULUS
+Bilqis Retno Kedaton Geling,87684025,IPS,LULUS
+Fayrus Syifa Khairani,87326384,IPS,LULUS
+Muhammad Reihan Risqullah,75020234,IPS,LULUS
+Anisa Ramadhani,73860636,IPS,LULUS
+Annisa Aulia Firdaus,73883802,IPS,LULUS
+Azka Nadziroh,89242709,IPS,LULUS
+Bilqis Alifah Ramadhani,85436191,IPS,LULUS
+Eysa Nur Manda Putra,78786702,IPS,LULUS
+Fachris Ali Robbani,3087288390,IPS,LULUS
+Fatimatus Zahro Agustin,73147584,IPS,LULUS
+Hamid Arya Ahmadhi,93587128,IPS,LULUS
+Hayyun Najiyah,74259266,IPS,LULUS
+Hayyus Sa'idah,77223924,IPS,LULUS
+Ikhwan Samsul Kharis,66089425,IPS,LULUS
+Khoirul Anam,89131577,IPS,LULUS
+M. Kevin Karunia Putra,85332273,IPS,LULUS
+Mochamad Muta'ali Ferdiansyah,61355772,IPS,LULUS
+Mohammad Fadhil Rozaqi,83218911,IPS,LULUS
+Nabila Fatiya Alfania,81454730,IPS,LULUS
+Qeyla Nuryati Azizah,3084366327,IPS,LULUS
+Rahma Nurul Azizah,76945425,IPS,LULUS
+Roudhotul Husna Emilia Fatecha,3087903913,IPS,LULUS
+Safinatul Islamiah,73997042,IPS,LULUS
+Syfa Fauzia,71344822,IPS,LULUS
+Muhammad Vanni Rizqi Lazuardy,59379335,IPS,LULUS
+Hanifa Rahmadina,79544330,IPS,LULUS
+Ahmad Nafil Waliuddin,93943190,IPS,LULUS`;
+
+        // --- 2. TIMER CONFIG ---
+        const openDate = new Date("May 5, 2026 09:30:00").getTime();
+        
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = openDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0"+d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0"+h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0"+m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0"+s : s;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").style.display = "none";
+                const btn = document.getElementById("btn-enter");
+                btn.disabled = false;
+                btn.innerText = "MASUK KE HALAMAN PENGUMUMAN";
+            }
+        }, 1000);
+
+        // --- 3. SPA NAVIGATION ---
+        function nav(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // --- 4. LOGIKA PENGECEKAN & MODAL ---
+        function cekData() {
+            const input = document.getElementById('input-nisn').value.trim();
+            const modal = document.getElementById('result-modal');
+            const resStatus = document.getElementById('res-status');
+            const resActions = document.getElementById('res-actions');
+
+            if (!input) return alert("Harap masukkan NISN terlebih dahulu!");
+
+            const rows = dataCSV.split("\n");
+            let data = null;
+
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].split(",");
+                if (cols[1] === input) {
+                    data = { nama: cols[0], nisn: cols[1], jurusan: cols[2], status: cols[3].trim().toUpperCase() };
+                    break;
+                }
+            }
+
+            // Tampilkan Modal
+            modal.style.display = "flex";
+            resActions.innerHTML = "";
+
+            if (data) {
+                document.getElementById('res-nama').innerText = data.nama;
+                document.getElementById('res-detail').innerText = `NISN: ${data.nisn} | Jurusan: ${data.jurusan}`;
+                
+                if (data.status === "LULUS") {
+                    resStatus.innerText = "DINYATAKAN: LULUS";
+                    resStatus.className = "status-box lulus";
+                    document.getElementById('res-note').innerText = "Selamat! Silakan cetak Surat Keterangan Lulus (SKL) ini sebagai bukti syarat pengambilan (SKL) yang asli pada Bag. Waka Kurikulum.";
+                    resActions.innerHTML = `
+                        <button class="btn btn-gold" onclick="window.print()">Cetak SKL (PDF)</button>
+                        <button class="btn btn-outline" onclick="closeModal()" style="margin-left: 10px;">Cek Siswa Lain</button>
+                    `;
+                } else {
+                    resStatus.innerText = "DINYATAKAN: TIDAK LULUS";
+                    resStatus.className = "status-box tidak-lulus";
+                    document.getElementById('res-note').innerText = "Jangan berkecil hati, tetap semangat dan terus berusaha untuk masa depanmu.";
+                    resActions.innerHTML = `<button class="btn btn-outline" onclick="closeModal()">Cek Siswa Lain</button>`;
+                }
+            } else {
+                document.getElementById('res-nama').innerText = "Data Tidak Ditemukan";
+                document.getElementById('res-detail').innerText = "NISN: " + input;
+                resStatus.innerText = "ERROR: NISN TIDAK TERDAFTAR";
+                resStatus.className = "status-box not-found";
+                document.getElementById('res-note').innerText = "Pastikan nomor yang Anda masukkan benar. Hubungi Admin Sekolah jika ada kekeliruan.";
+                resActions.innerHTML = `<button class="btn btn-outline" onclick="closeModal()">Coba Lagi</button>`;
+            }
+        }
+
+        // Fungsi Menutup Modal
+        function closeModal() {
+            document.getElementById('result-modal').style.display = "none";
+            document.getElementById('input-nisn').value = ""; // Membersihkan input setelah dicek
+            document.getElementById('input-nisn').focus();
+        }
+
+        // Menutup modal jika klik di luar area modal (background gelap)
+        window.onclick = function(event) {
+            const modal = document.getElementById('result-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Support Enter Key di Input NISN
+        document.getElementById("input-nisn").addEventListener("keyup", function(e) {
+            if (e.key === "Enter") cekData();
+        });
+
+        // Auto Year Footer
+        document.getElementById("currentYear").innerText = new Date().getFullYear();
+  </script>
+</body>
+</html>
